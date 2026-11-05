@@ -1,0 +1,22 @@
+# --- Configuración con claves del DVR (se suben solo los .example) ---
+config.php
+go2rtc/go2rtc.yaml
+
+# --- Binarios: se descargan aparte (ver README) ---
+go2rtc/*.exe
+ffmpeg/
+*.exe
+
+# --- Caché, clips y registros generados por el portal ---
+cache/
+*.lock
+*.log
+*.h264
+*.mp4
+
+# --- Sistema / editores ---
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/

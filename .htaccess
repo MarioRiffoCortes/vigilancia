@@ -1,0 +1,4 @@
+DirectoryIndex index.php
+<FilesMatch "\.(bat|yaml|yml|exe|txt)$">
+  Require all denied
+</FilesMatch>

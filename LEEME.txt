@@ -1,0 +1,27 @@
+PORTAL DE CAMARAS - PASOS
+=========================
+1. Edita go2rtc\go2rtc.yaml (Bloc de notas): pon la IP, usuario y clave
+   de tu DVR (los mismos de la app XVR Pro) y deja solo los canales que tengas.
+2. Con Laragon iniciado, ejecuta iniciar.bat. La primera vez Windows
+   pedira permiso de firewall: acepta para "redes privadas".
+3. Se abre http://localhost/vigilancia/ con la grilla de camaras.
+   Clic en una camara = vista HD. Flechas para cambiar, Esc para cerrar.
+
+Desde el celular u otro PC de la casa: http://IP-DE-ESTE-PC/vigilancia/
+
+Diagnostico: http://localhost:1984 muestra el panel de go2rtc con el
+estado de cada flujo. Si una camara no carga, revisa ahi el error.
+Para aplicar cambios del .yaml: detener.bat y luego iniciar.bat.
+
+GRABACIONES
+===========
+(Crear 3 Usuarios en el DVR con su respectiva contraseña)
+El vivo usa el usuario USER1 del DVR (go2rtc/go2rtc.yaml).
+Grabaciones: camaras 1 y 2 se piden con USER2, camaras 3 y 4 con USER3.
+Usuarios, camaras y clave del DVR estan en config.php.
+Al pulsar la linea de tiempo el video parte en 1-2 s mientras llega del DVR
+(~3 veces mas rapido que tiempo real). El DVR entrega una grabacion a la vez
+por usuario: en 2 pantallas, si ambas camaras son del mismo usuario, la segunda
+se pide con el otro (USER2/USER3). Los clips quedan 24 h en cache\clips.
+Calendario y linea de tiempo consultan con USER1; la reproduccion usa USER2/USER3.
+ffmpeg (carpeta ffmpeg) convierte los videos del DVR a MP4.

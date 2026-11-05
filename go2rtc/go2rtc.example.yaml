@@ -1,0 +1,62 @@
+# =====================================================================
+#  CONFIGURACIÓN DE CÁMARAS  —  edita SOLO la sección "streams"
+#  Copia este archivo como go2rtc.yaml (go2rtc.yaml NO se sube a GitHub).
+# =====================================================================
+#  1. Reemplaza 192.168.1.100 por la IP de tu DVR (la misma de XVR Pro).
+#  2. Reemplaza usuario_vivo / CAMBIAR_CLAVE por el usuario y contraseña del DVR.
+#     Si la clave tiene símbolos (@ : / # ? &), escríbelos codificados:
+#     @ = %40   : = %3A   / = %2F   # = %23   ? = %3F   & = %26
+#  3. Deja tantas cámaras como canales tenga tu DVR (borra las sobrantes).
+#
+#  Cada cámara tiene dos flujos:
+#    nombre      -> subflujo, baja resolución (calidad SD)
+#    nombre_hd   -> flujo principal, alta resolución (calidad HD/UHD)
+#  El nombre visible se define en config.php ($NOMBRES); si no está ahí,
+#  se arma desde el flujo: "patio_trasero" -> "Patio Trasero".
+#  channel=N es el canal del DVR (empieza en 1).
+#
+#  Después de editar, cierra go2rtc (detener.bat) y vuelve a abrir iniciar.bat.
+# =====================================================================
+
+streams:
+  camara_1:    rtsp://192.168.1.100:554/user=usuario_vivo&password=CAMBIAR_CLAVE&channel=1&stream=1.sdp?real_stream
+  camara_1_hd: rtsp://192.168.1.100:554/user=usuario_vivo&password=CAMBIAR_CLAVE&channel=1&stream=0.sdp?real_stream
+
+  camara_2:    rtsp://192.168.1.100:554/user=usuario_vivo&password=CAMBIAR_CLAVE&channel=2&stream=1.sdp?real_stream
+  camara_2_hd: rtsp://192.168.1.100:554/user=usuario_vivo&password=CAMBIAR_CLAVE&channel=2&stream=0.sdp?real_stream
+
+  camara_3:    rtsp://192.168.1.100:554/user=usuario_vivo&password=CAMBIAR_CLAVE&channel=3&stream=1.sdp?real_stream
+  camara_3_hd: rtsp://192.168.1.100:554/user=usuario_vivo&password=CAMBIAR_CLAVE&channel=3&stream=0.sdp?real_stream
+
+  camara_4:    rtsp://192.168.1.100:554/user=usuario_vivo&password=CAMBIAR_CLAVE&channel=4&stream=1.sdp?real_stream
+  camara_4_hd: rtsp://192.168.1.100:554/user=usuario_vivo&password=CAMBIAR_CLAVE&channel=4&stream=0.sdp?real_stream
+
+# ---------------------------------------------------------------------
+#  Formatos RTSP según la marca interna del equipo (el canal empieza en 1):
+#
+#  XMeye / Xiongmai (lo más común con XVR Pro):
+#    rtsp://IP:554/user=USUARIO&password=CLAVE&channel=1&stream=1.sdp?real_stream   (sub)
+#    rtsp://IP:554/user=USUARIO&password=CLAVE&channel=1&stream=0.sdp?real_stream   (HD)
+#
+#  Dahua y compatibles:
+#    rtsp://USUARIO:CLAVE@IP:554/cam/realmonitor?channel=1&subtype=1   (sub)
+#    rtsp://USUARIO:CLAVE@IP:554/cam/realmonitor?channel=1&subtype=0   (HD)
+#
+#  Hikvision y compatibles:
+#    rtsp://USUARIO:CLAVE@IP:554/Streaming/Channels/102   (sub)
+#    rtsp://USUARIO:CLAVE@IP:554/Streaming/Channels/101   (HD)
+#
+#  Si una cámara HD se ve en negro, probablemente transmite en H.265:
+#  usa el subflujo también para "_hd", o configura el DVR en H.264.
+# ---------------------------------------------------------------------
+
+# No tocar de aquí hacia abajo
+api:
+  listen: ":1984"
+  origin: "*"
+
+rtsp:
+  listen: "127.0.0.1:8554"
+
+log:
+  level: warn
